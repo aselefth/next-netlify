@@ -33,7 +33,7 @@ const cameras = [
 
 interface ClientPageProps {
 	id: string;
-	task: Task;
+	task: Task | undefined;
 	deleteTask: () => Promise<void>;
 	updateTask: (form: FormData) => Promise<void>;
 }
@@ -47,7 +47,7 @@ export function ClientPage({
 	const [currentCamera, setCurrentCamera] = useState("/incident1.jpg");
 	const [_isPending, startTransition] = useTransition();
 	const [isEditable, setIsEditable] = useState(false);
-	const [comment, setComment] = useState(task.comment);
+	const [comment, setComment] = useState(task?.comment);
 
 	const onClick = (src: string) => {
 		if (src === currentCamera) {
@@ -63,11 +63,12 @@ export function ClientPage({
 
 	const handleUpdateTask = () => {
 		const form = new FormData();
-		form.append("comment", comment);
-		Object.entries(task).forEach(([key, value]) => {
-			form.append(key, key === "comment" ? comment : value.toString());
-		});
-		startTransition(() => updateTask(form));
+		task &&
+			comment &&
+			Object.entries(task).forEach(([key, value]) => {
+				form.append(key, key === "comment" ? comment : value.toString());
+			});
+		task && startTransition(() => updateTask(form));
 	};
 
 	return (
@@ -107,7 +108,7 @@ export function ClientPage({
 								<p className="font-bold text-lg/[22px] text-white/30">
 									Дата:{" "}
 									<span className="font-normal text-white">
-										{[task.date, task.time].join(" ")}
+										{[task?.date, task?.time].join(" ")}
 									</span>
 								</p>
 							</section>
@@ -127,9 +128,9 @@ export function ClientPage({
 							</section>
 						</div>
 						<div className="flex flex-col items-end gap-2">
-							<Progress progress={task.progress} />
+							<Progress progress={task?.progress || 0} />
 							<p className="text-lg/[22px] font-normal text-black/50">
-								Найдено {task.thiefAmount} чел.
+								Найдено {task?.thiefAmount} чел.
 							</p>
 							<AlertDialog>
 								<AlertDialogTrigger

@@ -1,12 +1,11 @@
 import { Task } from "@/components/Task";
 import { db } from "@/lib/db";
-import { tasks } from "@/mockdata";
 import { Task as TaskType } from "@prisma/client";
 
 export default async function Home() {
-	// const tasksRes = await fetch(`http://localhost:3000/api/tasks`);
+	const tasksRes = await fetch(`http://localhost:3000/api/tasks`);
 
-	// const { tasks }: { tasks: TaskType[] } = await tasksRes.json();
+	const { tasks }: { tasks: TaskType[] } = await tasksRes.json();
 
 	return (
 		<div className="w-full flex flex-col items-center gap-4">

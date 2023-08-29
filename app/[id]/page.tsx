@@ -25,7 +25,7 @@ export default async function TaskPage({ params }: TaskPageProps) {
 		next: { tags: ["Task", params.id] },
 	});
 
-	const { task }: { task: Task } = await taskRes.json();
+	const { task }: { task: Task | undefined } = await taskRes.json();
 
 	async function deleteTask() {
 		"use server";
@@ -39,10 +39,11 @@ export default async function TaskPage({ params }: TaskPageProps) {
 		"use server";
 		let { thiefAmount, incidentsAmount, progress, hasVideo, ...data } =
 			Object.fromEntries(form.entries());
-		thiefAmount = JSON.parse(thiefAmount.toString());
-		incidentsAmount = JSON.parse(incidentsAmount.toString());
-		progress = JSON.parse(progress.toString());
-		hasVideo = JSON.parse(hasVideo.toString());
+		console.log(thiefAmount, incidentsAmount);
+		thiefAmount = JSON.parse(thiefAmount?.toString());
+		incidentsAmount = JSON.parse(incidentsAmount?.toString());
+		progress = JSON.parse(progress?.toString());
+		hasVideo = JSON.parse(hasVideo?.toString());
 
 		console.log(data);
 
