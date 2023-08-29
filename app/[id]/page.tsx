@@ -25,6 +25,8 @@ export default async function TaskPage({ params }: TaskPageProps) {
 		next: { tags: ["Task", params.id] },
 	});
 
+	console.log(taskRes, "task response");
+
 	const { task }: { task: Task | undefined } = await taskRes.json();
 
 	async function deleteTask() {
@@ -64,6 +66,7 @@ export default async function TaskPage({ params }: TaskPageProps) {
 			const result = await res.json();
 			console.log(result);
 			revalidateTag(params.id);
+			revalidatePath("/");
 		}
 	}
 
