@@ -26,6 +26,9 @@ export default async function TaskPage({ params }: TaskPageProps) {
 		"use server";
 		const res = await db.task.delete({ where: { id: params.id } });
 		console.log("task was deleted");
+		if (!res) {
+			return;
+		}
 		revalidatePath("/");
 		redirect("/");
 	}
