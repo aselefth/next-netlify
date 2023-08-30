@@ -1,5 +1,4 @@
 "use client";
-import styles from "./page.module.scss";
 import * as Card from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ChevronLeft, PlusCircle } from "lucide-react";
@@ -28,7 +27,7 @@ export function CreateTaskClient(props: CreateTaskClientProps) {
 	return (
 		<form
 			action={props.sendFiles}
-			className={cn("grid grid-cols-[68px_1fr] gap-1.5 w-full", styles.page)}
+			className={cn("grid grid-cols-[68px_1fr] gap-1.5 w-full create")}
 		>
 			<Card.Root className="w-full hover:bg-white/20 h-[414px] rounded-[22px] rounded-tr-none rounded-br-none bg-white/10 backdrop-blur-sm border-[#ffffff10] border shadow-md">
 				<Card.Content className="flex items-center justify-center h-full w-full p-0 cursor-pointer">
@@ -53,7 +52,7 @@ export function CreateTaskClient(props: CreateTaskClientProps) {
 					<div
 						className={cn(
 							"w-full flex flex-col gap-2.5 items-center justify-center rounded-xl bg-white/10 border border-white/10 h-[302px] relative p-2",
-							isInDragArea && styles.dragging
+							isInDragArea && "dragging"
 						)}
 					>
 						<label

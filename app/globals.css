@@ -109,3 +109,47 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.page ::-webkit-scrollbar {
+  height: 8px;
+}
+
+.page ::-webkit-scrollbar-track {
+  background-color: #00000030;
+  border-radius: 5px;
+}
+
+.page ::-webkit-scrollbar-thumb {
+  background-color: #ffffff70;
+  border-radius: 5px;
+}
+
+.page ::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff95;
+}
+
+.dragging {
+  border: 2px dashed #253f7c;
+}
+
+.create ::file-selector-button {
+  display: none;
+}
+
+.create ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.create ::-webkit-scrollbar-track {
+  background-color: #00000030;
+  border-radius: 5px;
+}
+
+.create ::-webkit-scrollbar-thumb {
+  background-color: #ffffff70;
+  border-radius: 5px;
+}
+
+.create ::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff95;
+}

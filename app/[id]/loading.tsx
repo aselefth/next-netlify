@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import styles from "./page.module.scss";
 import { Skeleton } from "@/components/ui/skeleton";
 import * as Card from "@/components/ui/card";
 import Link from "next/link";
@@ -8,9 +7,7 @@ import { ChevronLeft } from "lucide-react";
 
 export default function Loading() {
 	return (
-		<div
-			className={cn(styles.page, "grid grid-cols-[68px_1fr] gap-1.5 w-full")}
-		>
+		<div className={cn("page grid grid-cols-[68px_1fr] gap-1.5 w-full")}>
 			<Card.Root className="w-full hover:bg-white/20 h-[414px] rounded-[22px] rounded-tr-none rounded-br-none bg-white/10 backdrop-blur-sm border-[#ffffff10] border shadow-md">
 				<Card.Content className="flex items-center justify-center h-full w-full p-0 cursor-pointer">
 					<Link
