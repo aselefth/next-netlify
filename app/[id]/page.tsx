@@ -4,6 +4,7 @@ import { Task } from "@prisma/client";
 import { db } from "@/lib/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 interface TaskPageProps {
 	params: {
@@ -21,7 +22,7 @@ export const generateMetadata = async ({
 };
 
 export default async function TaskPage({ params }: TaskPageProps) {
-	const taskRes = await fetch(`${process.env.HOST}/api/tasks/${params.id}`, {
+	const taskRes = await fetch(`http://localhost:3001/api/tasks/${params.id}`, {
 		next: { tags: ["Task", params.id] },
 	});
 
@@ -47,8 +48,8 @@ export default async function TaskPage({ params }: TaskPageProps) {
 
 		console.log(data);
 
-		const res = await fetch(`${process.env.HOST}/api/tasks/${params.id}`, {
-			method: "POST",
+		const res = await fetch(`http://localhost:3001/api/tasks/${params.id}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -60,6 +61,8 @@ export default async function TaskPage({ params }: TaskPageProps) {
 				hasVideo,
 			}),
 		});
+
+		console.log(res);
 		if (res.ok) {
 			const result = await res.json();
 			console.log(result);

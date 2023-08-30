@@ -1,9 +1,10 @@
 import { Task } from "@/components/Task";
 import { db } from "@/lib/db";
 import { Task as TaskType } from "@prisma/client";
+import { headers } from "next/headers";
 
 export default async function Home() {
-	const tasksRes = await fetch(`http://localhost:3000/api/tasks`);
+	const tasksRes = await fetch(`http://localhost:3001/api/tasks`);
 
 	const { tasks }: { tasks: TaskType[] } = await tasksRes.json();
 
