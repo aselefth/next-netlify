@@ -33,7 +33,7 @@ const cameras = [
 
 interface ClientPageProps {
 	id: string;
-	task: Task | undefined;
+	task: Task | null;
 	deleteTask: () => Promise<void>;
 	updateTask: (form: FormData) => Promise<void>;
 }

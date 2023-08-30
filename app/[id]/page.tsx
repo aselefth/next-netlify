@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { ClientPage } from "./ClientPage";
-import { Task } from "@prisma/client";
 import { db } from "@/lib/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
@@ -21,13 +20,7 @@ export const generateMetadata = async ({
 };
 
 export default async function TaskPage({ params }: TaskPageProps) {
-	const taskRes = await fetch(`http://localhost:3001/api/tasks/${params.id}`, {
-		next: { tags: ["Task", params.id] },
-	});
-
-	console.log(taskRes, "task response");
-
-	const { task }: { task: Task | undefined } = await taskRes.json();
+	const task = await db.task.findFirst({ where: { id: params.id } });
 
 	async function deleteTask() {
 		"use server";
@@ -39,34 +32,20 @@ export default async function TaskPage({ params }: TaskPageProps) {
 
 	async function updateTask(form: FormData) {
 		"use server";
-		let { thiefAmount, incidentsAmount, progress, hasVideo, ...data } =
-			Object.fromEntries(form.entries());
-		console.log(thiefAmount, incidentsAmount);
-		thiefAmount = JSON.parse(thiefAmount?.toString());
-		incidentsAmount = JSON.parse(incidentsAmount?.toString());
-		progress = JSON.parse(progress?.toString());
-		hasVideo = JSON.parse(hasVideo?.toString());
 
-		console.log(data);
+		const comment = form.get("comment")?.toString();
 
-		const res = await fetch(`http://localhost:3001/api/tasks/${params.id}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
+		const res = await db.task.update({
+			where: {
+				id: params.id,
 			},
-			body: JSON.stringify({
-				...data,
-				thiefAmount,
-				incidentsAmount,
-				progress,
-				hasVideo,
-			}),
+			data: {
+				comment,
+			},
 		});
 
 		console.log(res);
-		if (res.ok) {
-			const result = await res.json();
-			console.log(result);
+		if (res) {
 			revalidateTag(params.id);
 			revalidatePath("/");
 		}
