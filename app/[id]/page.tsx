@@ -4,7 +4,6 @@ import { Task } from "@prisma/client";
 import { db } from "@/lib/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 
 interface TaskPageProps {
 	params: {
